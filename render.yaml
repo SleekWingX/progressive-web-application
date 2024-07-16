@@ -3,7 +3,10 @@ services:
     name: jate-server
     env: node
     plan: free
-    buildCommand: npm run build
+    buildCommand: |
+      cd client && npm install &&
+      npm run build &&
+      cd ../server && npm install
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
