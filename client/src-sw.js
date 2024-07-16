@@ -54,3 +54,12 @@ registerRoute(
     ],
   })
 );
+
+// event listeners for install and activate events
+self.addEventListener('install', (event) => {
+  console.log('Service worker installing...');
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Service worker activating...');
+});
