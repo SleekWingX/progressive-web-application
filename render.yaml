@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: jate-server
+    env: node
+    plan: free
+    buildCommand: cd client && npm install && npm run build
+    startCommand: node server/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+    regions:
+      - oregon
