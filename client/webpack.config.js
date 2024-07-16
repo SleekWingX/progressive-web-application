@@ -13,10 +13,11 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      publicPath: '/', // Ensure the public path is set correctly
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './index.html',
+        template: './src/index.html',
         title: 'Just Another Text Editor',
       }),
       new InjectManifest({
@@ -37,6 +38,7 @@ module.exports = () => {
             src: path.resolve('src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons'),
+            filename: 'icon_[width]x[height][ext]', // Use consistent filenames
           },
         ],
       }),
@@ -46,6 +48,13 @@ module.exports = () => {
         {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'assets/images/[name][ext]', // Use original filenames for images
+          },
         },
         {
           test: /\.m?js$/,

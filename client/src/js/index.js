@@ -1,7 +1,8 @@
 import { Workbox } from 'workbox-window';
 import Editor from './editor';
-import './database';
+import { getDb, putDb } from './database';
 import '../css/style.css';
+import logo from '../images/logo.png'; // Import the logo
 
 const main = document.querySelector('#main');
 main.innerHTML = '';
@@ -21,6 +22,25 @@ const editor = new Editor();
 
 if (typeof editor === 'undefined') {
   loadSpinner();
+} else {
+  // Load data from IndexedDB and set it in the editor
+  getDb().then((data) => {
+    if (data.length > 0) {
+      editor.setValue(data[0].content);
+    }
+  });
+
+  // Save data to IndexedDB on editor changes
+  editor.on('change', () => {
+    const content = editor.getValue();
+    putDb(content);
+  });
+}
+
+// Set the logo image dynamically
+const logoImg = document.querySelector('.navbar-brand img');
+if (logoImg) {
+  logoImg.src = logo;
 }
 
 // Check if service workers are supported

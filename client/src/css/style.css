@@ -35,6 +35,8 @@ h1 {
 
 .navbar-brand img {
   padding-top: 10px;
+  width: 50px; /* Set the width */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .loading-spinner {
