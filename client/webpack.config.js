@@ -13,7 +13,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: '/', // Ensure the public path is set correctly
+      publicPath: '/',
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -41,6 +41,8 @@ module.exports = () => {
             filename: 'icon_[width]x[height][ext]', // Use consistent filenames
           },
         ],
+        // Ensure the manifest file itself is not hashed
+        filename: 'manifest.json'
       }),
     ],
     module: {
